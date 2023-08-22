@@ -1,0 +1,45 @@
+<div class="row mt-2" style="margin-left: 20px; margin-right: 20px">
+    <div class="col">
+        <div class="col-md-12">
+            <br>
+            <h3 style="color: white">Products</h3>
+            <div class="card card-body table-responsive">
+                <table class="table table-sm" id="Products">
+                    <thead>
+                    <tr class="table-secondary">
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr>
+                    </thead>
+
+
+                    {% for product in products %}
+                        <tr>
+                            <td><a class="btn btn-sm btn-primary" href="{% url 'view' product.id %}">View</a></td>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>$ {{ product.price }}</td>
+                            <td>{{ product.quantity }}</td>
+
+                            <td><a class="btn btn-sm btn-info"
+                                   href="{% url 'update_product' product.id %}">Update</a>
+                            </td>
+
+                            <td><a class="btn btn-sm btn-danger"
+                                   href="{% url 'delete_product' product.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <a class="btn btn-primary  btn-sm btn-block col-md-12" href="{% url 'add_product' %}">Add
+                    Product</a>
+            </div>
+        </div>
+    </div>
+</div>

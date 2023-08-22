@@ -1,0 +1,108 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <br>
+
+    <div class="row mt-5" style="margin-left: 20px; margin-right: 20px">
+
+        <div class="col-md-7">
+            <br>
+            <h3 style="color: white">Checkout</h3>
+            <div class="card card-body">
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
+                        {{ form.name }}
+                        <label for="name">Name</label>
+                    </div>
+
+
+                    <div class="form-floating mb-3">
+                        {{ form.email }}
+                        <label for="email">Email</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        {{ form.address }}
+                        <label for="address">Address</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        {{ form.card_number }}
+                        <label for="card_number">Credit Card Number</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        {{ form.cvv }}
+                        <label for="csv">CVV</label>
+                    </div>
+
+                    <div class="d-block" id="submitErrorMessage">
+                        <div class="text-center text-danger mb-3">
+                            {% for message in messages %}
+                                <p class="h5" style="font-size: 16px" id="messages">{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if cart.items.all %}
+                        <button class="btn btn-primary  btn-sm btn-block col-md-12"
+                                type="submit">Purchase
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <br>
+            <h3 style="color: white">Cart</h3>
+            <div class="card card-body table-responsive">
+                {% if cart.items.all %}
+
+                    <table class="table table-sm"  id="Cart">
+                        <tr class="table-secondary">
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+
+                        {% for item in cart.items.all %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>$ {{ item.price }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        <tr>
+                            <th>Total:</th>
+                            <th>$ {{ total }}</th>
+                        </tr>
+                    </table>
+
+                {% else %}
+                    <p>No Items Added to Cart</p>
+                {% endif %}
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <script>
+        const form_fields = document.getElementsByTagName('input')
+
+        for (let i = 0; i < form_fields.length; i++) {
+            form_fields[i].className += ' form-control'
+        }
+
+
+        $(document).ready(function () {
+            $('#Cart').DataTable();
+        });
+
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <br>
+    <div class="row mt-5" style="margin-left: 20px; margin-right: 20px">
+        <div class="col">
+            <div class="col-md-4">
+                <div style="background-color: #f4623a" class="card text-center text-white mb-3" id="total-orders">
+                    <div class="card-header">
+                        <h5 class="card-title">Total Orders</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ orders.count }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'accounts/admin/products.html' %}
+
+    {% include 'accounts/admin/orders.html' %}
+
+    <script>
+        $(document).ready(function () {
+            $('#Products').DataTable();
+        });
+
+        $(document).ready(function () {
+            $('#Orders').DataTable();
+        });
+    </script>
+{% endblock %}

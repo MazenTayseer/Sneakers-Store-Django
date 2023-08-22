@@ -1,0 +1,61 @@
+<div class="row mt-2" style="margin-left: 20px; margin-right: 20px">
+    <div class="col">
+        <div class="col-md-12">
+            <br>
+            <h3 style="color: white">Orders</h3>
+            <div class="card card-body table-responsive">
+                <table class="table table-sm" id="Orders">
+                    <thead>
+                    <tr class="table-secondary">
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>items</th>
+                        <th>items count</th>
+                        <th>Status</th>
+                        <th>Shipped</th>
+                    </tr>
+                    </thead>
+
+
+                    {% for order in orders %}
+                        {% if order.shipped == 'shipped' %}
+                            <tr class="table-success">
+                                <td>{{ order.name }}</td>
+                                <td>{{ order.address }}</td>
+                                <td>
+                                    {% for product in order.items.all %}
+                                        {{ product.name }} /
+                                    {% endfor %}
+                                </td>
+                                <td>{{ order.items.count }}</td>
+                                <td>{{ order.shipped }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-success" disabled>Mark as Shipped</button>
+                                </td>
+                            </tr>
+
+                        {% else %}
+                            <tr>
+                                <td>{{ order.name }}</td>
+                                <td>{{ order.address }}</td>
+                                <td>
+                                    {% for product in order.items.all %}
+                                        {{ product.name }} /
+                                    {% endfor %}
+                                </td>
+                                <td>{{ order.items.count }}</td>
+                                <td>{{ order.shipped }}</td>
+                                <td><a class="btn btn-sm btn-danger"
+                                       href="{% url 'ship_order' order.id %}">Mark as Shipped</a>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+
+                    {% endfor %}
+                </table>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>

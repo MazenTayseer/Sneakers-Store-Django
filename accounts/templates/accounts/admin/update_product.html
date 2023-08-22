@@ -1,0 +1,65 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section class="page-section">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6 text-center">
+                    <h2 class="mt-0" style="color: white">Update Product</h2>
+                    <hr class="divider"/>
+                </div>
+            </div>
+            <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+                <div class="col-lg-6">
+                    <form method="POST" enctype='multipart/form-data'>
+                        {% csrf_token %}
+
+                        <div class="form-floating mb-3">
+                            {{ product.name }}
+                            <label for="name">Name</label>
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+                            {{ product.price }}
+                            <label for="price">Price</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {{ product.size }}
+                            <label for="size">Size</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {{ product.quantity }}
+                            <label for="quantity">Quantity</label>
+                        </div>
+
+                        <div style="color: white" class="form-floating mb-3">
+                            {{ product.image }}
+                        </div>
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-xl">Update Product
+                            </button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const form_fields = document.getElementsByTagName('input')
+
+        for (let i = 0; i < form_fields.length; i++) {
+            form_fields[i].className += ' form-control'
+        }
+
+    </script>
+
+{% endblock %}

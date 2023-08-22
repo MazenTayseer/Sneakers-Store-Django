@@ -1,0 +1,45 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <section class="row mt-5" style="margin-left: 20px; margin-right: 20px">
+        <div class="col-md-12">
+            <div class="container px-4 px-lg-5 my-5">
+                                    <p style="color: white"><a style="text-decoration: none; color: #cf5331"
+                          href="{% url 'shop' %}">shop</a> / {{ product.name }}</p>
+                <section class="card card-body">
+                    <div class="row gx-4 gx-lg-5 align-items-center">
+                        <div class="col-md-6">
+                            <img class="card-img-top mb-5 mb-md-0" src="{{ product.image.url }}"/>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="small mb-1">SKU: {{ product.id }}</div>
+                            <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+                            <div class="fs-5 mb-5">
+                                <span>${{ product.price }}</span>
+                            </div>
+                            <div class="d-flex">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Add to cart
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </section>
+
+
+
+{% endblock %}

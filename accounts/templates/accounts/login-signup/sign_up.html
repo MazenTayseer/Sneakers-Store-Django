@@ -1,0 +1,63 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Contact-->
+    <section class="page-section">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6 text-center">
+                    <h2 class="mt-0" style="color: white">Sign up</h2>
+                    <hr class="divider"/>
+                </div>
+            </div>
+            <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+                <div class="col-lg-6">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="form-floating mb-3">
+                            {{ form.username }}
+                            <label for="username">Username</label>
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+                            {{ form.password1 }}
+                            <label for="password1">Password</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.password2 }}
+                            <label for="password2">Re-enter Password</label>
+                        </div>
+
+                        <div class="d-block" id="submitErrorMessage">
+                            <div class="text-center text-danger mb-3">
+                                {% for field, error in form.errors.items %}
+                                    <div class="h5">
+                                        {{ error|striptags }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-xl">Sign up
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const form_fields = document.getElementsByTagName('input')
+        form_fields[2].className += ' form-control'
+        form_fields[3].className += ' form-control'
+    </script>
+
+{% endblock %}

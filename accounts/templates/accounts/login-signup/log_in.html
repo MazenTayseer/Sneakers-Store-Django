@@ -1,0 +1,51 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Contact-->
+    <section class="page-section">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6 text-center">
+                    <h2 class="mt-0" style="color: white">Log in</h2>
+                    <hr class="divider"/>
+                </div>
+            </div>
+            <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+                <div class="col-lg-6">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="username" name="username" type="text"/>
+                            <label for="username">Username</label>
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="password" name="password" type="password"/>
+                            <label for="password">Password</label>
+                        </div>
+                        <!-- Submit error message-->
+
+                        <div class="d-block" id="submitErrorMessage">
+                            <div class="text-center text-danger mb-3">
+                                {% for message in messages %}
+                                    <p class="h5" style="font-size: 16px" id="messages">{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Log in
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

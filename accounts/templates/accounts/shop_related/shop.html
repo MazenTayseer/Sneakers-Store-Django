@@ -1,0 +1,77 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <header style="background-color: transparent;" class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shop For Sneakers</h1>
+                <p class="lead fw-normal text-white mb-0">Find your favourite pair of Sneakers</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-0">
+            <div class="form-floating mb-3 col-md-12">
+                {% if products %}
+                    <input class="form-control" onkeyup="search_for_product()" id="searchbar" name="searchbar"
+                           type="text"/>
+                    <label for="searchbar">Search</label>
+                {% endif %}
+            </div>
+
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% if products %}
+                    {% for product in products %}
+                        {% if product.quantity > 0 %}
+                            <div class="col mb-5 productContainer">
+                                <div class="card h-100">
+                                    <img class="card-img-top p-3" src="{{ product.image.url }}"/>
+                                    <hr style="margin-right: 10px; margin-left:10px">
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <h5 class="fw-bolder products"> {{ product.name }}</h5>
+                                            $ {{ product.price }}
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                                    href="{% url 'view' product.id %}">View</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                {% else %}
+                    <div class="card card-body">
+                    <p class="text-center">No Items are for sale.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        function search_for_product() {
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('products');
+            let containers = document.getElementsByClassName('productContainer');
+
+            for (let i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    containers[i].style.display = "none";
+                } else {
+                    containers[i].style.display = "";
+                }
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+
+    <div class="row mt-5" style="margin-left: 20px; margin-right: 20px">
+        <div class="col">
+            <div class="col-md-12">
+                <br>
+                <div class="card card-body">
+                    <p>Are you sure you want to delete "{{ product }}"?</p>
+
+                    <form action="{% url 'delete_product' product.id %}" method="POST">
+
+                        {% csrf_token %}
+                        <a class="btn btn-warning" href="{% url 'admin_dashboard' %}">Cancel</a>
+
+                        <input class="btn btn-danger" type="submit" name="Confirm">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

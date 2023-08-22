@@ -1,0 +1,60 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <br>
+    <form method="POST">
+        <div class="row mt-5" style="margin-left: 20px; margin-right: 20px">
+            <div class="col-md-12">
+                <br>
+                <h3 style="color: white">Cart</h3>
+                <div class="card card-body table-responsive">
+                    {% if cart.items.all %}
+
+                        <table class="table table-sm" id="Cart">
+                            <tr class="table-secondary">
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Remove</th>
+                            </tr>
+
+                            {% for item in cart.items.all %}
+                                <tr>
+                                    <td>{{ item.name }}</td>
+                                    <td>$ {{ item.price }}</td>
+
+
+                                    <td><a class="btn btn-sm btn-danger"
+                                           href="{% url 'remove_product' item.id %}">Remove</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            <tr>
+                                <th>Total:</th>
+                                <th>$ {{ total }}</th>
+                                <th></th>
+                            </tr>
+                        </table>
+
+                    {% else %}
+                        <p class="text-center">No Items Added to Cart</p>
+                    {% endif %}
+                </div>
+                <br>
+                {% if cart.items.all %}
+                    <a class="btn btn-primary  btn-sm btn-block col-md-12"
+                       href="{% url 'checkout' %}">Checkout</a>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $('#Cart').DataTable();
+        });
+    </script>
+
+{% endblock %}
